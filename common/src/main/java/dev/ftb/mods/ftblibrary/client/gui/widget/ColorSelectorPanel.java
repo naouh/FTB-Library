@@ -1,5 +1,6 @@
 package dev.ftb.mods.ftblibrary.client.gui.widget;
 
+import net.minecraft.world.scores.TeamColor;
 import com.google.common.primitives.Ints;
 import dev.ftb.mods.ftblibrary.FTBLibrary;
 import dev.ftb.mods.ftblibrary.client.config.ConfigCallback;
@@ -87,7 +88,7 @@ public class ColorSelectorPanel extends ModalPanel {
 
     private static void setupPalettes(Map<String,List<Integer>> presetMap) {
         presetMap.put("chat", Util.make(new ArrayList<>(), l -> {
-            Arrays.stream(ChatFormatting.values()).filter(ChatFormatting::isColor).map(ChatFormatting::getColor).forEach(e -> l.add(e | 0xFF000000));
+            Arrays.stream(TeamColor.values()).map(TeamColor::rgb).forEach(e -> l.add(e | 0xFF000000));
         }));
 
         presetMap.put("dye", Util.make(new ArrayList<>(), l -> {

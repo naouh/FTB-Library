@@ -18,7 +18,8 @@ import net.minecraft.network.chat.contents.PlainTextContents;
 import net.minecraft.sounds.SoundEvents;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
-import org.lwjgl.glfw.GLFW;
+import com.mojang.blaze3d.platform.InputConstants;
+import org.lwjgl.sdl.SDLMouse;
 
 import java.util.Optional;
 
@@ -34,11 +35,13 @@ public class Widget implements IScreenWrapper, Comparable<Widget> {
     }
 
     public static boolean isMouseButtonDown(MouseButton button) {
-        return GLFW.glfwGetMouseButton(Minecraft.getInstance().getWindow().handle(), button.id) == GLFW.GLFW_PRESS;
+        // 26.3: SDL3 input; MouseButton ids are SDL button numbers (1-based)
+        return button.id > 0 && (SDLMouse.SDL_GetMouseState(null, null) & (1 << (button.id - 1))) != 0;
     }
 
     public static boolean isKeyDown(int key) {
-        return GLFW.glfwGetKey(Minecraft.getInstance().getWindow().handle(), key) == GLFW.GLFW_PRESS;
+        // 26.3: key is an SDL scancode (InputConstants.KEY_*)
+        return InputConstants.isKeyDown(key);
     }
 
     public static String getClipboardString() {

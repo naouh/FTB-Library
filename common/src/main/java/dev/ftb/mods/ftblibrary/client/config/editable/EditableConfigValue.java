@@ -1,5 +1,7 @@
 package dev.ftb.mods.ftblibrary.client.config.editable;
 
+import net.minecraft.locale.Language;
+
 import dev.ftb.mods.ftblibrary.client.config.ConfigCallback;
 import dev.ftb.mods.ftblibrary.client.config.EditableConfigGroup;
 import dev.ftb.mods.ftblibrary.client.gui.input.MouseButton;
@@ -217,7 +219,7 @@ public abstract class EditableConfigValue<T> implements Comparable<EditableConfi
 
     public String getTooltip() {
         var k = getNameKey() + ".tooltip";
-        return I18n.exists(k) ? I18n.get(k) : "";
+        return Language.getInstance().has(k) ? I18n.get(k) : "";
     }
 
     public EditableConfigValue<T> setOrder(int o) {

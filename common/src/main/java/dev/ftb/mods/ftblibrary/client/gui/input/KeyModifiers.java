@@ -1,6 +1,6 @@
 package dev.ftb.mods.ftblibrary.client.gui.input;
 
-import org.lwjgl.glfw.GLFW;
+import com.mojang.blaze3d.platform.InputConstants;
 
 
 public class KeyModifiers {
@@ -13,27 +13,27 @@ public class KeyModifiers {
     }
 
     public boolean shift() {
-        return (modifiers & GLFW.GLFW_MOD_SHIFT) != 0;
+        return (modifiers & InputConstants.MOD_SHIFT) != 0;
     }
 
     public boolean control() {
-        return (modifiers & GLFW.GLFW_MOD_CONTROL) != 0;
+        return (modifiers & InputConstants.MOD_CONTROL) != 0;
     }
 
     public boolean alt() {
-        return (modifiers & GLFW.GLFW_MOD_ALT) != 0;
+        return (modifiers & InputConstants.MOD_ALT) != 0;
     }
 
     public boolean start() {
-        return (modifiers & GLFW.GLFW_MOD_SUPER) != 0;
+        return (modifiers & InputConstants.MOD_SUPER) != 0;
     }
 
     public boolean numLock() {
-        return (modifiers & GLFW.GLFW_MOD_NUM_LOCK) != 0;
+        return (modifiers & InputConstants.MOD_NUM_LOCK) != 0;
     }
 
     public boolean capsLock() {
-        return (modifiers & GLFW.GLFW_MOD_CAPS_LOCK) != 0;
+        return (modifiers & InputConstants.MOD_CAPS_LOCK) != 0;
     }
 
     public boolean onlyControl() {

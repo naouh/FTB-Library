@@ -1,5 +1,6 @@
 package dev.ftb.mods.ftblibrary.client.util;
 
+import com.mojang.blaze3d.Blaze3D;
 import dev.ftb.mods.ftblibrary.FTBLibrary;
 import dev.ftb.mods.ftblibrary.api.event.client.AllowChatCommandEvent;
 import dev.ftb.mods.ftblibrary.api.event.client.CustomClickEvent;
@@ -44,7 +45,7 @@ public class ClientUtils {
         if (!command.isEmpty() && Minecraft.getInstance().player != null) {
             if (AllowChatCommandEvent.TYPE.post(new AllowChatCommandEvent.Data(command))) {
                 if (printChat) {
-                    Minecraft.getInstance().gui.getChat().addRecentChat(command);
+                    Minecraft.getInstance().gui.hud.getChat().addRecentChat(command);
                 }
                 Minecraft.getInstance().player.connection.sendCommand(command.replaceFirst("/", ""));
             }
@@ -65,12 +66,12 @@ public class ClientUtils {
             }
         }
 
-        return clazz.isAssignableFrom(gui.getClass()) ? (T) Minecraft.getInstance().screen : null;
+        return clazz.isAssignableFrom(gui.getClass()) ? (T) Minecraft.getInstance().gui.screen() : null;
     }
 
     @Nullable
     public static <T> T getCurrentGuiAs(Class<T> clazz) {
-        return Minecraft.getInstance().screen == null ? null : getGuiAs(Minecraft.getInstance().screen, clazz);
+        return Minecraft.getInstance().gui.screen() == null ? null : getGuiAs(Minecraft.getInstance().gui.screen(), clazz);
     }
 
     public static boolean handleClick(String scheme, String path) {
@@ -80,15 +81,15 @@ public class ClientUtils {
                 try {
                     final var uri = new URI(uriStr);
                     if (Minecraft.getInstance().options.chatLinksPrompt().get()) {
-                        final var currentScreen = Minecraft.getInstance().screen;
-                        Minecraft.getInstance().setScreen(new ConfirmLinkScreen(accepted -> {
+                        final var currentScreen = Minecraft.getInstance().gui.screen();
+                        Minecraft.getInstance().gui.setScreen(new ConfirmLinkScreen(accepted -> {
                             if (accepted) {
-                                Util.getPlatform().openUri(uri);
+                                Blaze3D.openUri(uri);
                             }
-                            Minecraft.getInstance().setScreen(currentScreen);
-                        }, uriStr, false));
+                            Minecraft.getInstance().gui.setScreen(currentScreen);
+                        }, uri, false));
                     } else {
-                        Util.getPlatform().openUri(uri);
+                        Blaze3D.openUri(uri);
                     }
 
                     return true;
@@ -100,7 +101,7 @@ public class ClientUtils {
             }
             case "file" -> {
                 try {
-                    Util.getPlatform().openUri(new URI("file:" + path));
+                    Blaze3D.openUri(new URI("file:" + path));
                     return true;
                 } catch (Exception ex) {
                     logHandleClickFailure(scheme, path, ex);

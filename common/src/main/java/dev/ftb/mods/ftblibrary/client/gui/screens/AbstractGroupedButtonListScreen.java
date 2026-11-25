@@ -15,7 +15,7 @@ import dev.ftb.mods.ftblibrary.util.Lazy;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
-import org.lwjgl.glfw.GLFW;
+import org.lwjgl.sdl.SDLScancode;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -99,7 +99,7 @@ public abstract class AbstractGroupedButtonListScreen<G, E> extends AbstractButt
             return true;
         } else if (event.is(InputConstants.KEY_ADD) || event.is(InputConstants.KEY_EQUALS)) {
             toggleAll(false);
-        } else if (event.is(InputConstants.KEY_MINUS) || event.is(GLFW.GLFW_KEY_KP_SUBTRACT)) {
+        } else if (event.is(InputConstants.KEY_MINUS) || event.is(SDLScancode.SDL_SCANCODE_KP_MINUS)) {
             toggleAll(true);
         }
         return false;

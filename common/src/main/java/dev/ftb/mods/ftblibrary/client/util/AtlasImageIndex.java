@@ -252,7 +252,7 @@ public final class AtlasImageIndex {
         }
 
         @Override
-        public Map<Identifier, Resource> listResources(String directory, Predicate<Identifier> filter) {
+        public Map<Identifier, Resource> listResources(String directory, ResourceManager.Selector filter) {
             if (directory.equals("textures") || directory.startsWith("textures/")) {
                 return listTextures(directory + "/", filter);
             }
@@ -261,14 +261,14 @@ public final class AtlasImageIndex {
             return res;
         }
 
-        private Map<Identifier, Resource> listTextures(String prefix, Predicate<Identifier> filter) {
+        private Map<Identifier, Resource> listTextures(String prefix, ResourceManager.Selector filter) {
             if (allTextures == null) {
                 allTextures = new TreeMap<>(delegate.listResources("textures", id -> true));
                 allTextures.forEach((id, r) -> paths.put(r, id));
             }
             Map<Identifier, Resource> result = new TreeMap<>();
             allTextures.forEach((id, r) -> {
-                if (id.getPath().startsWith(prefix) && filter.test(id)) {
+                if (id.getPath().startsWith(prefix) && filter.isIncluded(id)) {
                     result.put(id, r);
                 }
             });
@@ -276,7 +276,7 @@ public final class AtlasImageIndex {
         }
 
         @Override
-        public Map<Identifier, List<Resource>> listResourceStacks(String directory, Predicate<Identifier> filter) {
+        public Map<Identifier, List<Resource>> listResourceStacks(String directory, ResourceManager.Selector filter) {
             var res = delegate.listResourceStacks(directory, filter);
             res.forEach((id, l) -> l.forEach(r -> paths.put(r, id)));
             return res;

@@ -27,7 +27,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.NbtUtils;
+import net.minecraft.nbt.SnbtPrinterTagVisitor;
 import net.minecraft.nbt.TagParser;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Util;
@@ -486,7 +486,8 @@ public abstract class ModalResourceSelector<T> extends ModalPanel {
                 CompoundTag toEdit = Objects.requireNonNullElse(selectedStack.getComponentsTag(), new CompoundTag());
                 if (button.isLeft()) {
                     EditableString config = new EditableString();
-                    config.updateValue(NbtUtils.prettyPrint(toEdit, true));
+                    // 26.3: NbtUtils.prettyPrint was removed; print as indented SNBT (parsed back with TagParser below)
+                    config.updateValue(new SnbtPrinterTagVisitor().visit(toEdit));
                     getGui().pushModalPanel(makeMultilineEditPanel(config));
                 } /*else if (button.isRight()) {
                     CompoundTag info = Util.make(new CompoundTag(), tag -> tag.putString("type", "item"));

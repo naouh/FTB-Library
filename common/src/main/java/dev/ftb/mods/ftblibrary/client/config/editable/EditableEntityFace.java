@@ -1,5 +1,7 @@
 package dev.ftb.mods.ftblibrary.client.config.editable;
 
+import net.minecraft.world.entity.EntityTypes;
+
 import dev.ftb.mods.ftblibrary.client.config.ConfigCallback;
 import dev.ftb.mods.ftblibrary.client.config.gui.resource.EntityFaceResource;
 import dev.ftb.mods.ftblibrary.client.config.gui.resource.SelectEntityFaceScreen;
@@ -16,7 +18,7 @@ import java.util.OptionalLong;
 
 public class EditableEntityFace extends EditableResource<EntityType<?>> {
     // any non-living entity would be ok here
-    public static final EntityType<?> NONE = EntityType.AREA_EFFECT_CLOUD;
+    public static final EntityType<?> NONE = EntityTypes.AREA_EFFECT_CLOUD;
 
     public EditableEntityFace() {
         value = NONE;

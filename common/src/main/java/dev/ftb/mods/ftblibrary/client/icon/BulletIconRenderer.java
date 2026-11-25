@@ -1,6 +1,6 @@
 package dev.ftb.mods.ftblibrary.client.icon;
 
-import com.mojang.blaze3d.pipeline.RenderPipeline;
+import com.mojang.renderpearl.api.pipeline.RenderPipeline;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import dev.ftb.mods.ftblibrary.icon.BulletIcon;
 import dev.ftb.mods.ftblibrary.icon.Color4I;

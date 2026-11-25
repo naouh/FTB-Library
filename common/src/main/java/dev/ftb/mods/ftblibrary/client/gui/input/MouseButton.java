@@ -1,5 +1,6 @@
 package dev.ftb.mods.ftblibrary.client.gui.input;
 
+import com.mojang.blaze3d.platform.InputConstants;
 
 import net.minecraft.util.Util;
 
@@ -9,11 +10,12 @@ public class MouseButton {
             array[i] = new MouseButton(i);
         }
     });
-    public static final MouseButton LEFT = get(0);
-    public static final MouseButton RIGHT = get(1);
-    public static final MouseButton MIDDLE = get(2);
-    public static final MouseButton BACK = get(3);
-    public static final MouseButton NEXT = get(4);
+    // 26.3: Minecraft passes SDL3 mouse button numbers (1-based: left=1, middle=2, right=3, x1=4, x2=5)
+    public static final MouseButton LEFT = get(InputConstants.MOUSE_BUTTON_LEFT);
+    public static final MouseButton RIGHT = get(InputConstants.MOUSE_BUTTON_RIGHT);
+    public static final MouseButton MIDDLE = get(InputConstants.MOUSE_BUTTON_MIDDLE);
+    public static final MouseButton BACK = get(InputConstants.MOUSE_BUTTON_4);
+    public static final MouseButton NEXT = get(InputConstants.MOUSE_BUTTON_5);
 
     public final int id;
 

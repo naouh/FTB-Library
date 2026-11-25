@@ -1,5 +1,7 @@
 package dev.ftb.mods.ftblibrary.client.config.gui;
 
+import net.minecraft.locale.Language;
+
 import com.mojang.blaze3d.platform.InputConstants;
 import dev.ftb.mods.ftblibrary.client.config.EditableConfigGroup;
 import dev.ftb.mods.ftblibrary.client.config.editable.EditableConfigValue;
@@ -23,7 +25,7 @@ import net.minecraft.network.chat.TextColor;
 import net.minecraft.util.Mth;
 import org.apache.commons.lang3.mutable.MutableInt;
 import org.jspecify.annotations.Nullable;
-import org.lwjgl.glfw.GLFW;
+import org.lwjgl.sdl.SDLScancode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -193,7 +195,7 @@ public class EditConfigScreen extends AbstractThreePanelScreen<EditConfigScreen.
             return true;
         } else if (event.is(InputConstants.KEY_ADD) || event.is(InputConstants.KEY_EQUALS)) {
             buttonExpandAll.onClicked(MouseButton.LEFT);
-        } else if (event.is(InputConstants.KEY_MINUS) || event.is(GLFW.GLFW_KEY_KP_SUBTRACT)) {
+        } else if (event.is(InputConstants.KEY_MINUS) || event.is(SDLScancode.SDL_SCANCODE_KP_MINUS)) {
             buttonCollapseAll.onClicked(MouseButton.LEFT);
         }
         return false;
@@ -235,7 +237,7 @@ public class EditConfigScreen extends AbstractThreePanelScreen<EditConfigScreen.
             }
 
             var infoKey = group.getPath() + ".info";
-            info = I18n.exists(infoKey) ? Component.translatable(infoKey) : null;
+            info = Language.getInstance().has(infoKey) ? Component.translatable(infoKey) : null;
             setCollapsed(collapsed);
         }
 

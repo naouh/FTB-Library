@@ -5,7 +5,6 @@ import dev.ftb.mods.ftblibrary.platform.client.PlatformClient;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.input.KeyEvent;
-import org.lwjgl.glfw.GLFW;
 
 public record Key(KeyEvent event) {
     public boolean is(int k) {
@@ -27,11 +26,11 @@ public record Key(KeyEvent event) {
     }
 
     public boolean enter() {
-        return is(GLFW.GLFW_KEY_ENTER);
+        return is(InputConstants.KEY_RETURN);
     }
 
     public boolean backspace() {
-        return is(GLFW.GLFW_KEY_BACKSPACE);
+        return is(InputConstants.KEY_BACKSPACE);
     }
 
     public boolean cut() {
@@ -51,7 +50,7 @@ public record Key(KeyEvent event) {
     }
 
     public boolean deselectAll() {
-        return is(GLFW.GLFW_KEY_D) && event.hasControlDown() && !event.hasShiftDown() && !event.hasAltDown();
+        return is(InputConstants.KEY_D) && event.hasControlDown() && !event.hasShiftDown() && !event.hasAltDown();
     }
 
     public KeyModifiers modifiers() {

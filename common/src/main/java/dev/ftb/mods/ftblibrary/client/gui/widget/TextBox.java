@@ -18,7 +18,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.util.StringUtil;
 import net.minecraft.util.Util;
 import org.joml.Matrix3x2fStack;
-import org.lwjgl.glfw.GLFW;
+import com.mojang.blaze3d.platform.InputConstants;
 
 import org.jspecify.annotations.Nullable;
 
@@ -377,19 +377,19 @@ public class TextBox extends Widget implements IFocusableWidget {
             return true;
         } else {
             switch (key.event().key()) {
-                case GLFW.GLFW_KEY_ESCAPE -> {
+                case InputConstants.KEY_ESCAPE -> {
                     setFocused(false);
                     return true;
                 }
-                case GLFW.GLFW_KEY_BACKSPACE -> {
+                case InputConstants.KEY_BACKSPACE -> {
                     deleteText(-1);
                     return true;
                 }
-                case GLFW.GLFW_KEY_HOME -> {
+                case InputConstants.KEY_HOME -> {
                     moveCursorToStart(isShiftKeyDown());
                     return true;
                 }
-                case GLFW.GLFW_KEY_LEFT -> {
+                case InputConstants.KEY_LEFT -> {
                     if (isCtrlKeyDown()) {
                         moveCursorTo(getWordPosition(-1), isShiftKeyDown());
                     } else {
@@ -397,7 +397,7 @@ public class TextBox extends Widget implements IFocusableWidget {
                     }
                     return true;
                 }
-                case GLFW.GLFW_KEY_RIGHT -> {
+                case InputConstants.KEY_RIGHT -> {
                     if (isCtrlKeyDown()) {
                         moveCursorTo(getWordPosition(1), isShiftKeyDown());
                     } else {
@@ -405,22 +405,22 @@ public class TextBox extends Widget implements IFocusableWidget {
                     }
                     return true;
                 }
-                case GLFW.GLFW_KEY_END -> {
+                case InputConstants.KEY_END -> {
                     moveCursorToEnd(isShiftKeyDown());
                     return true;
                 }
-                case GLFW.GLFW_KEY_DELETE -> {
+                case InputConstants.KEY_DELETE -> {
                     deleteText(1);
                     return true;
                 }
-                case GLFW.GLFW_KEY_ENTER, GLFW.GLFW_KEY_KP_ENTER -> {
+                case InputConstants.KEY_RETURN, InputConstants.KEY_NUMPADENTER -> {
                     if (validText) {
                         setFocused(false);
                         onEnterPressed();
                     }
                     return true;
                 }
-                case GLFW.GLFW_KEY_TAB -> {
+                case InputConstants.KEY_TAB -> {
                     if (validText) {
                         setFocused(false);
                         onTabPressed();

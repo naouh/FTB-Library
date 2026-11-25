@@ -1,5 +1,7 @@
 package dev.ftb.mods.ftblibrary.client.config;
 
+import net.minecraft.locale.Language;
+
 import dev.ftb.mods.ftblibrary.client.config.editable.*;
 import dev.ftb.mods.ftblibrary.config.manager.ConfigManager;
 import dev.ftb.mods.ftblibrary.config.value.Config;
@@ -134,7 +136,7 @@ public class EditableConfigGroup implements Comparable<EditableConfigGroup> {
      */
     public Component getTooltip() {
         var t = getNameKey() + ".tooltip";
-        return I18n.exists(t) ? Component.translatable(t) : Component.empty();
+        return Language.getInstance().has(t) ? Component.translatable(t) : Component.empty();
     }
 
     /**

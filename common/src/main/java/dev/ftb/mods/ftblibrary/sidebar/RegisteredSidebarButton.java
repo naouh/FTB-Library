@@ -1,5 +1,7 @@
 package dev.ftb.mods.ftblibrary.sidebar;
 
+import net.minecraft.locale.Language;
+
 import dev.ftb.mods.ftblibrary.api.sidebar.ButtonOverlayRender;
 import dev.ftb.mods.ftblibrary.api.sidebar.SidebarButton;
 import dev.ftb.mods.ftblibrary.client.gui.GuiHelper;
@@ -33,7 +35,7 @@ public class RegisteredSidebarButton implements SidebarButton {
         this.id = id;
         this.data = data;
         this.langKey = Util.makeDescriptionId("sidebar_button", id);
-        tooltip = I18n.exists(langKey + ".tooltip") ? Component.translatable(langKey + ".tooltip") : null;
+        tooltip = Language.getInstance().has(langKey + ".tooltip") ? Component.translatable(langKey + ".tooltip") : null;
         if (data.requiresOp()) {
             addVisibilityCondition(ClientUtils.IS_CLIENT_OP);
         }

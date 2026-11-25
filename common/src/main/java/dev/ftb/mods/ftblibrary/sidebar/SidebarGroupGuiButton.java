@@ -1,5 +1,6 @@
 package dev.ftb.mods.ftblibrary.sidebar;
 
+import com.mojang.blaze3d.platform.InputConstants;
 import dev.ftb.mods.ftblibrary.api.sidebar.ButtonOverlayRender;
 import dev.ftb.mods.ftblibrary.client.icon.IconHelper;
 import dev.ftb.mods.ftblibrary.config.FTBLibraryClientConfig;
@@ -252,7 +253,7 @@ public class SidebarGroupGuiButton extends AbstractButton {
 
     @Override
     public void onRelease(MouseButtonEvent mouseButtonEvent) {
-        if (lastMouseClickButton == 1) {
+        if (lastMouseClickButton == InputConstants.MOUSE_BUTTON_RIGHT) {
             return;
         }
         super.onRelease(mouseButtonEvent);
@@ -436,7 +437,7 @@ public class SidebarGroupGuiButton extends AbstractButton {
 
     @Override
     public void onPress(InputWithModifiers inputWithModifiers) {
-        if (lastMouseClickButton == 1) {
+        if (lastMouseClickButton == InputConstants.MOUSE_BUTTON_RIGHT) {
             isEditMode = !isEditMode;
             ensureGridAlignment();
             return;
@@ -493,7 +494,7 @@ public class SidebarGroupGuiButton extends AbstractButton {
         }
 
         lastMouseClickButton = mouseButtonInfo.button();
-        if (mouseButtonInfo.button() == 1) {
+        if (mouseButtonInfo.button() == InputConstants.MOUSE_BUTTON_RIGHT) {
             return inBounds;
         }
 
