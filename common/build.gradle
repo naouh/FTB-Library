@@ -1,21 +1,15 @@
 plugins {
-    id 'net.fabricmc.fabric-loom'
+    id 'net.neoforged.moddev'
 }
 
-loom {
-    accessWidenerPath = file("src/main/resources/ftblibrary.accesswidener")
-
-    mixin {
-        useLegacyMixinAp = false
-    }
+// ultimateneo: common is compiled against the NeoForge-patched Minecraft with ModDevGradle
+// (previously Fabric Loom). The access widener entries are mirrored by the NeoForge AT.
+neoForge {
+    version = project.neoforge_version
+    accessTransformers.from(rootProject.file('neoforge/src/main/resources/META-INF/accesstransformer.cfg'))
 }
 
 dependencies {
-    minecraft "com.mojang:minecraft:${project.minecraft_version}"
-
-    compileOnly group: 'net.fabricmc', name: 'sponge-mixin', version: '0.17.0+mixin.0.8.7'
-    compileOnly "io.github.llamalad7:mixinextras-fabric:0.5.0"
-
     compileOnly("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
 
     api("de.marhali:json5-java:${json5_version}")
@@ -29,4 +23,12 @@ dependencies {
 
 test {
     useJUnitPlatform()
+}
+
+// Loom put Minecraft and its libraries on the test classpath; mirror that for the plain JUnit tests.
+sourceSets {
+    test {
+        compileClasspath += sourceSets.main.compileClasspath
+        runtimeClasspath += sourceSets.main.runtimeClasspath
+    }
 }
