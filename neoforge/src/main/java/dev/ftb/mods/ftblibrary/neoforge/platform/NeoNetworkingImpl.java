@@ -12,7 +12,11 @@ public class NeoNetworkingImpl implements Networking {
 
     @Override
     public void sendToPlayer(ServerPlayer player, CustomPacketPayload payload) {
-        PacketDistributor.sendToPlayer(player, payload);
+        // Ultimate Neo: a connection that never negotiated the channel (GameTest mock players, mod fake players)
+        // makes NeoForge throw and takes the server down; such a player has no FTB client to read the packet anyway.
+        if (player.connection != null && player.connection.hasChannel(payload)) {
+            PacketDistributor.sendToPlayer(player, payload);
+        }
     }
 
     @Override
